@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	ttgo.Command.Version = version
 	Run(context.Background(), ttgo.Command)
 }
 
