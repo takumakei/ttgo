@@ -1,0 +1,12 @@
+JSON
+----
+
+```json
+{
+  "type": {{ .Input.Type | toJson }},
+  "file": {{ .Input.File | toJson }},
+  "data": {{ .Data | trim | toJson }}
+}
+```
+
+{{ partial "example.partial.tmpl" $ -}}
