@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	_ "embed"
+	"encoding/json"
 	"io"
 	"log/slog"
 	"os"
@@ -50,7 +51,7 @@ func Run(cmd *cobra.Command, args []string) error {
 	}
 
 	for _, e := range FlagData {
-		if err := Exec(tmpl, bytes.NewBuffer([]byte(e)), Input{Type: OPTION}); err != nil {
+		if err := Exec(tmpl, bytes.NewBuffer([]byte(e)), Input{Type: DATA}); err != nil {
 			return err
 		}
 	}
@@ -93,6 +94,11 @@ type Context struct {
 	Data  string `json:"data"`
 }
 
+func (c *Context) String() string {
+	j, _ := json.Marshal(c)
+	return string(j)
+}
+
 type Input struct {
 	Type InputType `json:"type"`
 	File string    `json:"file"`
@@ -101,7 +107,7 @@ type Input struct {
 type InputType string
 
 const (
-	STDIN  InputType = "stdin"
-	OPTION InputType = "option"
-	FILE   InputType = "file"
+	STDIN InputType = "stdin"
+	DATA  InputType = "data"
+	FILE  InputType = "file"
 )
