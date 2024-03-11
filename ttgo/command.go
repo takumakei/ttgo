@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"github.com/takumakei/ttgo/headline"
 )
 
@@ -30,11 +31,15 @@ var (
 func init() {
 	flags := Command.Flags()
 	flags.SortFlags = false
-	flags.StringVarP(&FlagTmpl, "tmpl", "t", FlagTmpl, "template `file`")
+	flags.StringVarP(&FlagTmpl, "tmpl", "t", FlagTmpl, "template `file` (required)")
 	flags.StringArrayVarP(&FlagData, "data", "d", FlagData, "input `data`")
 }
 
 func Run(cmd *cobra.Command, args []string) error {
+	if FlagTmpl == "" {
+		return pflag.ErrHelp
+	}
+
 	tmpl, err := NewTemplate(FlagTmpl)
 	if err != nil {
 		return err
