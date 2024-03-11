@@ -56,7 +56,7 @@ func (te *Template) FuncMap() map[string]any {
 func (te *Template) Execute(data any) (string, error) {
 	b := new(bytes.Buffer)
 	err := te.tmpl.Execute(b, data)
-	return string(b.Bytes()), err
+	return b.String(), err
 }
 
 func (te *Template) partial(file string, data any) (string, error) {
