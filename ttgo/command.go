@@ -90,8 +90,8 @@ func ExecFile(tmpl *Template, file string, it Input) error {
 }
 
 type Context struct {
-	Input Input  `json:"input"`
-	Data  string `json:"data"`
+	Input Input  `json:"Input"`
+	Data  string `json:"Data"`
 }
 
 func (c *Context) String() string {
@@ -100,8 +100,8 @@ func (c *Context) String() string {
 }
 
 type Input struct {
-	Type InputType `json:"type"`
-	File string    `json:"file"`
+	Type InputType `json:"Type"`
+	File string    `json:"File"`
 }
 
 type InputType string
