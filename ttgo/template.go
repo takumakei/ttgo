@@ -16,6 +16,17 @@ type Template struct {
 }
 
 func NewTemplate(file string) (*Template, error) {
+	if file == "" {
+		tmpl, err := template.New("").Funcs(sprig.TxtFuncMap()).Parse("{{. | toPrettyJson}}")
+		if err != nil {
+			return nil, err
+		}
+		te := &Template{
+			tmpl: tmpl,
+		}
+		return te, nil
+	}
+
 	abs, err := filepath.Abs(file)
 	if err != nil {
 		return nil, err
